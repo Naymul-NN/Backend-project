@@ -8,7 +8,22 @@ const createProductIntoBb = async(Product: product)=>{
     return result
  };
 
+//  get all products
+
+const getAllProductFromDb = async()=>{
+   const result = await ProductModel.find()
+   return result
+}
+
+// get single product by id
+
+const getSingleProductFromDb = async(id : string)=>{
+   const result = await ProductModel.findOne({id: id})
+   return result
+}
 
  export const ProductService = {
-    createProductIntoBb
+    createProductIntoBb,
+    getAllProductFromDb,
+    getSingleProductFromDb
  }
