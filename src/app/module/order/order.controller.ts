@@ -4,7 +4,7 @@ import { OrderService } from "./order.service";
 // post a order
 const createProductOrder = async (req: Request, res: Response) => {
     try {
-        const  orderData = req.body.order
+        const orderData = req.body.order
         const result = await OrderService.createProductOrderIntoBb(orderData)
         await result.save();
         res.status(200).json({
@@ -13,20 +13,29 @@ const createProductOrder = async (req: Request, res: Response) => {
             data: result
         })
     } catch (err) {
-        console.log(err);
+        res.status(500).json({
+            success: false,
+            message: 'An error occurred while creating the order.',
+
+        });
     }
 }
 // get all order
-const getallProductOrders = async (req: Request, res: Response)=>{
-    try{
+const getallProductOrders = async (req: Request, res: Response) => {
+    try {
         const result = await OrderService.getAllorders()
         res.status(200).json({
             success: true,
             message: 'product are recive successfully',
             data: result
         })
-    }catch(err){
-     console.log(err)
+    } catch (err) {
+
+        res.status(500).json({
+            success: false,
+            message: 'Internal Server Error'
+        });
+
     }
 }
 
@@ -45,7 +54,6 @@ const getOrdersByEmail = async (req: Request, res: Response) => {
             data: result
         });
     } catch (err) {
-        console.error(err);
         res.status(500).json({
             success: false,
             message: 'Internal Server Error'

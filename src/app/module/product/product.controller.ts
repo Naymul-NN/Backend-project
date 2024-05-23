@@ -6,12 +6,12 @@ import productValidationSchema from "./product.validation";
 // post product
 const createProduct = async (req: Request, res: Response) => {
     try {
-        const  productData = req.body.product
+        const productData = req.body.product
 
         // do some validation by joi
-        const {error,value} = productValidationSchema.validate(productData);
+        const { error, value } = productValidationSchema.validate(productData);
 
-        if(error){
+        if (error) {
             res.status(500).json({
                 success: false,
                 message: 'something went wrong',
@@ -27,7 +27,11 @@ const createProduct = async (req: Request, res: Response) => {
             data: result
         })
     } catch (err) {
-        console.log(err);
+
+        res.status(500).json({
+            success: false,
+            message: 'Internal Server Error'
+        });
     }
 }
 
@@ -42,14 +46,18 @@ const getAllproducts = async (req: Request, res: Response) => {
         })
 
     } catch (error) {
-        console.log(error)
+
+        res.status(500).json({
+            success: false,
+            message: 'Internal Server Error'
+        });
     }
 }
 // get single product
 
 const getSingleproduct = async (req: Request, res: Response) => {
     try {
-        const {studentId} = req.params;
+        const { studentId } = req.params;
         const result = await ProductService.getSingleProductFromDb(studentId)
 
         res.status(200).json({
@@ -59,7 +67,11 @@ const getSingleproduct = async (req: Request, res: Response) => {
         })
 
     } catch (error) {
-        console.log(error)
+
+        res.status(500).json({
+            success: false,
+            message: 'Internal Server Error'
+        });
     }
 }
 // updata single porduct
@@ -67,6 +79,7 @@ const updateProduct = async (req: Request, res: Response) => {
     try {
         const { productId } = req.params;
         const updateData = req.body;
+
         const result = await ProductService.updateProductInDb(productId, updateData);
         res.status(200).json({
             success: true,
@@ -74,7 +87,7 @@ const updateProduct = async (req: Request, res: Response) => {
             data: result
         });
     } catch (error) {
-        console.log(error);
+
         res.status(500).json({
             success: false,
             message: 'Internal server error',
@@ -92,7 +105,6 @@ const deleteProduct = async (req: Request, res: Response) => {
             data: result
         });
     } catch (error) {
-        console.log(error);
         res.status(500).json({
             success: false,
             message: 'Internal server error',
@@ -111,7 +123,6 @@ const searchProducts = async (req: Request, res: Response) => {
             data: result
         });
     } catch (error) {
-        console.log(error);
         res.status(500).json({
             success: false,
             message: 'Internal server error',
