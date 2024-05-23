@@ -22,7 +22,6 @@ const createProduct = async (req: Request, res: Response) => {
 const getAllproducts = async (req: Request, res: Response) => {
     try {
         const result = await ProductService.getAllProductFromDb()
-
         res.status(200).json({
             success: true,
             message: 'product are recive successfully',
