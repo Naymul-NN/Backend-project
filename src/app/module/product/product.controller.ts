@@ -88,10 +88,30 @@ const deleteProduct = async (req: Request, res: Response) => {
     }
 };
 
+// add search system
+const searchProducts = async (req: Request, res: Response) => {
+    try {
+        const { searchTerm } = req.query;
+        const result = await ProductService.searchProductsInDb(searchTerm as string);
+        res.status(200).json({
+            success: true,
+            message: `Products matching search term '${searchTerm}' fetched successfully!`,
+            data: result
+        });
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({
+            success: false,
+            message: 'Internal server error',
+        });
+    }
+};
+
 export const ProductController = {
     createProduct,
     getAllproducts,
     getSingleproduct,
     updateProduct,
-    deleteProduct
+    deleteProduct,
+    searchProducts
 }

@@ -18,3 +18,4 @@ type Variant = {
     variants: Variant[];
     inventory: Inventory;
   };
+  
