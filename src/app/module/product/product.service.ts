@@ -1,7 +1,7 @@
 import { ProductModel } from "../product.model"
 import { product } from "./porduct.interface"
 
-
+// create products
 const createProductIntoBb = async(Product: product)=>{
 
     const result = await ProductModel.create(Product)
@@ -22,8 +22,21 @@ const getSingleProductFromDb = async(id : string)=>{
    return result
 }
 
+// update single product
+const updateProductInDb = async(id: string, update: Partial<product>) => {
+   const result = await ProductModel.updateOne({ _id: id }, update, { new: true });
+   return result;
+}
+// delete single product by id
+const deleteProductFromDb = async(id: string) => {
+   const result = await ProductModel.deleteOne({ _id: id });
+   return result;
+};
+
  export const ProductService = {
     createProductIntoBb,
     getAllProductFromDb,
-    getSingleProductFromDb
+    getSingleProductFromDb,
+    updateProductInDb,
+    deleteProductFromDb
  }
