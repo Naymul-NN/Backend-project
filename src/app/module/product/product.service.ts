@@ -1,5 +1,6 @@
-import { ProductModel } from "../product.model"
+// import { ProductModel } from "../product.model"
 import { product } from "./porduct.interface"
+import { ProductModel } from "./product.model";
 
 // create products
 const createProductIntoBb = async(Product: product)=>{
@@ -19,17 +20,20 @@ const getAllProductFromDb = async()=>{
 
 const getSingleProductFromDb = async(id : string)=>{
    const result = await ProductModel.findOne({id: id})
+   if(!result){
+      throw new Error(" id is not found")
+   }
    return result
 }
 
 // update single product
 const updateProductInDb = async(id: string, update: Partial<product>) => {
-   const result = await ProductModel.updateOne({ _id: id }, update, { new: true });
+   const result = await ProductModel.findByIdAndUpdate({ _id: id }, update, { new: true });
    return result;
 }
 // delete single product by id
 const deleteProductFromDb = async(id: string) => {
-   const result = await ProductModel.deleteOne({ _id: id });
+   const result = await ProductModel.findByIdAndDelete({ _id: id });
    return result;
 };
 // add search system

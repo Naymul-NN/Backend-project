@@ -4,7 +4,7 @@ import { OrderService } from "./order.service";
 // post a order
 const createProductOrder = async (req: Request, res: Response) => {
     try {
-        const orderData = req.body.order
+        const orderData = req.body
         const result = await OrderService.createProductOrderIntoBb(orderData)
         await result.save();
         res.status(200).json({

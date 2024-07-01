@@ -14,11 +14,13 @@ const getAllorders = async()=> {
   return result;
 }
 
+
 // get data by eamil
 const getOrdersByEmail = async (email: string) => {
   const result = await ProductOrderModel.find({ email });
   return result;
 };
+
 
  export const OrderService = {
    createProductOrderIntoBb,
