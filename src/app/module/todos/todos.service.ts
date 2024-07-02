@@ -8,9 +8,13 @@ const createTodo = async(Todo: Ttodos)=> {
 }
 
 
-const getAlltodos = async()=>{
-    const result = await TodosModel.find()
-    return result
+const getAlltodos = async(priority?: string)=>{
+   let filter = {};
+  if (priority) {
+    filter = { priority: priority };
+  }
+  const result = await TodosModel.find(filter);
+  return result;
  }
 
  export const todosService = {

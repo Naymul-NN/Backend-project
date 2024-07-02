@@ -1,8 +1,8 @@
 export type Ttodos = {
-    status: string;
+    status?: boolean;
     title: string;
     description: string;
-    dateTime: string;
+  
     priority: string;
   };
   

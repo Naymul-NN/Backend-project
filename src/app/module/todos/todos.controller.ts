@@ -11,7 +11,6 @@ const createTodo = async (req: Request, res: Response) => {
             message: 'todos created successfully',
             data: result
         })
-
     } catch (error) {
 
         res.status(500).json({
@@ -24,7 +23,9 @@ const createTodo = async (req: Request, res: Response) => {
 
 const getAllTodosFromDb = async (req: Request, res: Response) => {
     try {
-        const result = await todosService.getAlltodos()
+        const priority = req.query.priority as string;
+    const result = await todosService.getAlltodos(priority);
+        // const result = await todosService.getAlltodos()
         res.status(200).json({
             success: true,
             message: 'todos are recive successfully',
